@@ -13,6 +13,7 @@ export KBUILD_BUILD_USER=$KBUILD_BUILD_USER
 export KBUILD_BUILD_HOST=$KBUILD_BUILD_HOST
 export BUILD_USERNAME=$KBUILD_BUILD_USER
 export BUILD_HOSTNAME=$KBUILD_BUILD_HOST
+export WITH_GMS=true
 lunch lineage_spes-userdebug
 mkfifo reading
 tee "${BUILDLOG}" < reading &
