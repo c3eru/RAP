@@ -1,6 +1,6 @@
 #sync rom
-repo init --depth=1 --no-repo-verify -u https://github.com/crdroidandroid/android.git -b 13.0 -g default,-mips,-darwin,-notdefault
-git clone --depth 1 https://github.com/c3eru/local_manifest -b main .repo/local_manifests
+repo init --depth=1 --no-repo-verify -u https://github.com/syberia-project/manifest.git -b 13.0 -g default,-mips,-darwin,-notdefault
+git clone --depth 1 https://github.com/c3eru/local_manifest -b spes-syberia .repo/local_manifests
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
 
 # build rom
@@ -13,7 +13,7 @@ export KBUILD_BUILD_USER=$KBUILD_BUILD_USER
 export KBUILD_BUILD_HOST=$KBUILD_BUILD_HOST
 export BUILD_USERNAME=$KBUILD_BUILD_USER
 export BUILD_HOSTNAME=$KBUILD_BUILD_HOST
-lunch lineage_spes-userdebug
+lunch syberia_spes-userdebug
 mkfifo reading
 tee "${BUILDLOG}" < reading &
 build_message "Building Started"
