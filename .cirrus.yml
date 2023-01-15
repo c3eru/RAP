@@ -1,0 +1,51 @@
+env:
+# ENCRYPTED
+  RCLONECONFIG_DRIVE: "ENCRYPTED[f02e655dbc3b73a897bf4832473b7644b7315388bd76ae38de62220c8f94ad372c78a211c546e18c680d6bd492f7dfb2]"
+  TG_TOKEN: "ENCRYPTED[a32eee138329183256894088bbef1bfffcd46c166f7079855ad07986cd2594932d1afbdd9a700e7237efd8a1f527dc8f]"
+  TG_CHAT_ID: "ENCRYPTED[fc230b4c24f2e86609d8b71d109f0251c15157b31ca457a79efc0f86e8a55afc84fa0b592d5fe2d50a39442cbfbe08cb]"
+  CREDENTIALS: "ENCRYPTED[19718d5a633fbbadf586d666b8262724f78499743572b4c5a884832ce72d3164a9418ff4e0e610319361a0f4eced7ba4]"
+  USER: "ENCRYPTED[57e85dbcfe9481c7e13e8cd4d97884717afe61ab63d29b8d5b4bc83fa05b2e4d055ed22d3f61ccee2dd182e8c12ef8be]"
+  EMAIL: "ENCRYPTED[a52612edd05dc5f598bab04cd9cb4def15e0ec1da365efafa3e6590045dd208fb14be8a873b11e77c7bdccdd2bc19a8b]"
+  KBUILD_BUILD_USER: "ENCRYPTED[afcfbab279fbe749788d81fdcb159aa40f816d02ce754a63b1218a4765f8e3f18c1e1e027c55050c0ba0ce80ef3aeea6]"
+  KBUILD_BUILD_HOST: "ENCRYPTED[dc3914cd6fbd204a9c206a91b50f14483b5364748e3087a5b3eb2c3598df604b2f88547037cea92523a50c088f4a37e7]"
+
+# FLAG
+  WORKDIR: "/tmp"
+  CIRRUS_CLONE_DEPTH: "1"
+
+task:
+  name: "Setting Up, Syncing, Building and Uploading"
+  only_if: $CIRRUS_REPO_OWNER == 'c3eru'
+  timeout_in: 120m
+  container:
+    image: c3eru/gaspoll:22.04
+    cpu: 8
+    memory: 32G
+
+  Memuat-ccache_background_script:
+     - ./memuat_ccache.sh
+     
+  Repo-pribadi_script:
+     - git config --global user.name "$USER"
+     - git config --global user.email "$EMAIL"
+     - echo "$CREDENTIALS" > ~/.git-credentials
+     - git config --global credential.helper store --file=~/.git-credentials
+     - export KBUILD_BUILD_USER=$KBUILD_BUILD_USER
+     - export KBUILD_BUILD_HOST=$KBUILD_BUILD_USER
+     - export BUILD_USERNAME=$KBUILD_BUILD_USER
+     - export BUILD_HOSTNAME=$KBUILD_BUILD_USER
+
+
+  Sinkronisasi_script:
+     - ./sinkronisasi.sh
+     
+  Build-rom_script:
+     - ./membangun.sh
+     
+  Ccache-info_script:
+     - set -e
+     - export CCACHE_DIR=$WORKDIR/ccache
+     - ccache -s
+
+  Upload-build_script:
+     - ./mengemas.sh
