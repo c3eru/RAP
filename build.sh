@@ -1,5 +1,5 @@
 #sync rom
-repo init --depth=1 --no-repo-verify -u https://github.com/PixelExtended/manifest -b trece -g default,-mips,-darwin,-notdefault
+repo init --depth=1 --no-repo-verify -u https://github.com/syberia-project/manifest.git -b 13.0 -g default,-mips,-darwin,-notdefault
 git clone --depth 1 https://github.com/c3eru/local_manifest -b spes-pe .repo/local_manifests
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
 
