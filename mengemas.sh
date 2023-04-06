@@ -26,11 +26,11 @@ pesan Mengunggah ROM...
 
 cd $WORKDIR/rom/$nama_rom
 
-nama_file=$(basename out/target/product/$perangkat/syberia_chime-v*.zip)
+nama_file=$(basename out/target/product/$perangkat/syberia_c*.zip)
 tautan=https://buildbot.cloudmobx.workers.dev/0:/$nama_rom/$perangkat/$nama_file
 maintainer=https://t.me/mobxprjkt
 
-rclone copy out/target/product/$(grep unch $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d ' ' -f 2 | cut -d _ -f 2 | cut -d - -f 1)/syberia_chime-v*.zip rom:$(grep init $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d / -f 4)/$(grep unch $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d ' ' -f 2 | cut -d _ -f 2 | cut -d - -f 1) -P
+rclone copy out/target/product/$(grep unch $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d ' ' -f 2 | cut -d _ -f 2 | cut -d - -f 1)/syberia_c*.zip rom:$(grep init $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d / -f 4)/$(grep unch $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d ' ' -f 2 | cut -d _ -f 2 | cut -d - -f 1) -P
 
 cd $WORKDIR/rom/$nama_rom/out/target/product/$perangkat
 
