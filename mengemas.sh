@@ -26,11 +26,11 @@ pesan Mengunggah ROM...
 
 cd $WORKDIR/rom/$nama_rom
 
-nama_file=$(basename out/target/product/$perangkat/BananaDroid*.zip)
+nama_file=$(basename out/target/product/$perangkat/lineage-20.0-*.zip)
 tautan=https://buildbot.cloudmobx.workers.dev/0:/$nama_rom/$perangkat/$nama_file
 maintainer=https://t.me/mobxprjkt
 
-rclone copy out/target/product/$(grep unch $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d ' ' -f 2 | cut -d _ -f 2 | cut -d - -f 1)/BananaDroid*.zip rom:$(grep init $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d / -f 4)/$(grep unch $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d ' ' -f 2 | cut -d _ -f 2 | cut -d - -f 1) -P
+rclone copy out/target/product/$(grep unch $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d ' ' -f 2 | cut -d _ -f 2 | cut -d - -f 1)/lineage-20.0-*.zip rom:$(grep init $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d / -f 4)/$(grep unch $CIRRUS_WORKING_DIR/build.sh -m 1 | cut -d ' ' -f 2 | cut -d _ -f 2 | cut -d - -f 1) -P
 
 cd $WORKDIR/rom/$nama_rom/out/target/product/$perangkat
 
@@ -68,7 +68,7 @@ function upload_ccache() {
         tar --use-compress-program="pigz -k -$2 " -cf $1.tar.gz $1
     }
     time compress ccache 1
-    rclone copy --drive-chunk-size 256M --stats 1s ccache.tar.gz rom:ccache/$perangkat/$nama_rom -P
+    rclone copy --drive-chunk-size 256M --stats 1s ccache.tar.gz dotkit:ccache/$perangkat/$nama_rom -P
     rm -rf ccache.tar.gz
     pesan Mengunggah ccache berhasil...
 }
